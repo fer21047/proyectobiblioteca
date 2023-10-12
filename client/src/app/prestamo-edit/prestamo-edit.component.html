@@ -1,0 +1,29 @@
+<div class="col-md-4 offset-md-2">
+    <div class="card">
+      <div class="card-body">
+        <form (ngSubmit)="updatePrestamo()">
+          <div class="form-group">
+            <label for="FechaPres">Fecha de préstamo</label>
+            <input type="text" name="FechaPres" [(ngModel)]="prestamo.FechaPres" placeholder="Fecha de préstamo" class="form-control" required>
+          </div>
+          <div class="form-group">
+            <label for="FechaDev">Fecha de devolución</label>
+            <input type="text" name="FechaDev" [(ngModel)]="prestamo.FechaDev" placeholder="Fecha de devolución" class="form-control" required>
+          </div>
+          <div class="form-group">
+            <label for="IdUsuario">ID de usuario</label>
+            <input type="text" name="IdUsuario" [(ngModel)]="prestamo.IdUsuario" placeholder="ID de usuario" class="form-control" required>
+          </div>
+          <div class="form-group">
+            <label for="id">ID de libro</label>
+            <input type="number" name="id" [(ngModel)]="prestamo.id" placeholder="ID de libro" class="form-control" required>
+          </div>
+          <button type="submit" class="btn btn-success btn-block">
+            Guardar Cambios
+          </button>
+        </form>
+      </div>
+    </div>
+  </div>
+  
+  

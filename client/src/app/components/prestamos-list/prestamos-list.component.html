@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Lista de Préstamos</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet">
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      background-image: url('https://wallpaperaccess.com/full/5825217.jpg'); /* Agrega la URL de la imagen de fondo */
+      background-size: cover;
+      background-repeat: no-repeat;
+      min-height: 100vh;
+      font-family: Arial, sans-serif;
+    }
+
+    .title-bar {
+      font-size: 24px;
+      font-weight: bold;
+      text-align: center;
+      background-color: white;
+      padding: 10px 0;
+    }
+
+    .table {
+      background-color: rgba(255, 255, 255, 0.8);
+      border-collapse: collapse;
+      width: 100%;
+    }
+
+    .table th,
+    .table td {
+      border: 1px solid #ccc;
+      padding: 8px;
+      text-align: left;
+    }
+
+    .table th {
+      background-color: #f2f2f2;
+    }
+
+    .btn-danger,
+    .btn-info {
+      margin-top: 5px;
+    }
+
+    .btn-danger {
+      background-color: #dc3545;
+      border-color: #dc3545;
+    }
+
+    .btn-info {
+      background-color: #17a2b8;
+      border-color: #17a2b8;
+    }
+  </style>
+</head>
+<body>
+  <div class="background">
+    <div class="title-bar">Lista de Préstamos</div>
+    <table class="table table-bordered">
+      <thead>
+        <tr>
+          <th>Prestamo</th>
+          <th>Fecha de Préstamo</th>
+          <th>Fecha de Devolución</th>
+          <th>Usuario</th>
+          <th>Libro</th>
+          <th>Acciones</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let prestamo of prestamos">
+          <td>{{ prestamo.IdPrestamo }}</td>
+          <td>{{ prestamo.FechaPres }}</td>
+          <td>{{ prestamo.FechaDev }}</td>
+          <td>{{ prestamo.IdUsuario }}</td>
+          <td>{{ prestamo.id }}</td>
+          <td>
+            <button class="btn btn-danger" *ngIf="prestamo.IdPrestamo" (click)="deletePrestamo(prestamo.IdPrestamo)">
+              <i class="far fa-trash-alt"></i> Eliminar
+            </button>
+            <a [routerLink]="['/prestamos/edit', prestamo.IdPrestamo]" class="btn btn-info">
+              Editar
+            </a>              
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+</body>
+</html>
+
+
+
+
+
+
+

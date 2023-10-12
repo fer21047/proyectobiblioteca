@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
+  <style>
+    /* Estilos personalizados */
+    .sidebar {
+      width: fit-content;
+      min-width: 200px;
+      background-color: #f8f9fa;
+      padding-top: 20px; /* Espacio encima de los enlaces */
+      padding-bottom: 20px; /* Espacio debajo de los enlaces */
+    }
+
+    .nav-link {
+      color: #343a40;
+      transition: color 0.3s ease-in-out; /* Efecto de transición de color */
+    }
+
+    .nav-link:hover {
+      color: #007bff; /* Cambio de color al poner el ratón encima */
+    }
+
+    /* Eliminar resaltado azul al hacer clic */
+    .nav-link.active {
+      background-color: transparent;
+    }
+  </style>
+</head>
+<body>
+
+<div class="container-fluid">
+  <div class="row">
+    <!-- Barra de navegación vertical -->
+    <nav class="col-md-2 col-lg-2 bg-light sidebar">
+      <ul class="nav flex-column">
+        <li class="nav-item">
+          <a class="navbar-brand mb-4" routerLink="/">Biblioteca</a>
+        </li>
+        <!-- Sección de Multas -->
+        <li class="nav-item">
+          <a class="nav-link" routerLink="/multas/add" routerLinkActive="active">Multas</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" routerLink="/books/add" routerLinkActive="active">Libros</a>
+        </li>
+        <!-- Sección de Préstamos -->
+        <li class="nav-item">
+          <a class="nav-link" routerLink="/prestamos/add" routerLinkActive="active">Prestamos</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" routerLink="/usuarios/add" routerLinkActive="active">Usuarios</a>
+        </li>
+      </ul>
+    </nav>
+    
+    <!-- Contenido dinámico en el área principal -->
+    <div class="col-md-10 col-lg-10">
+      <router-outlet></router-outlet>
+    </div>
+  </div>
+</div>
+
+<script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+</body>
+</html>
+
