@@ -19,6 +19,9 @@ import { UsuarioListComponent } from './components/usuario-list/usuario-list.com
 import { UsuarioFormComponent } from './components/usuario-form/usuario-form.component'; 
 
 import { MapaComponent } from './components/mapa/mapa.component';
+import { LoginComponent } from './components/login/login.component';
+import { AuthGuard } from './guards/auth.guard';
+
 
 const routes: Routes = [
   {
@@ -82,7 +85,15 @@ const routes: Routes = [
     path: 'multas/edit/:idMulta',
     component: MultaFormComponent
   },
-  { path: 'mapa', component: MapaComponent }
+  { path: 'mapa', component: MapaComponent },
+
+  { path: 'login', component: LoginComponent },
+  {
+    path: 'usuarios',
+    component: UsuarioListComponent,
+    canActivate: [AuthGuard],
+    data: { roles: [1, 2,3] }  // 1 para administrador, 2 para bibliotecario
+  },
 ];
 
 @NgModule({

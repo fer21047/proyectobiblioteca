@@ -26,10 +26,12 @@
             ],
             "styles": [
               "src/styles.css",
-              "src/assets/estilo.css"  
+              "src/assets/estilo.css",
+              "node_modules/leaflet/dist/leaflet.css",
             ],
             "scripts": [
-              "src/assets/script.js"  
+              "src/assets/script.js",
+              "node_modules/leaflet/dist/leaflet.js"
             ]
           },
           "configurations": {

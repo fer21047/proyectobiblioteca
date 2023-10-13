@@ -1,2 +1,11 @@
-<!-- mapa.component.html -->
-<div id="map"></div>
+<h3>Ruta a Destino</h3>
+<div id="map" style="width: 100%; height: 400px;"></div>
+<ul *ngIf="route?.route && route?.route?.legs">
+  <li *ngFor="let leg of route.route.legs">
+    <h4>{{ leg.startPoint?.lat }}, {{ leg.startPoint?.lng }}</h4>
+    <ul>
+      <li *ngFor="let maneuver of leg.maneuvers">{{ maneuver?.narrative }}</li>
+    </ul>
+  </li>
+</ul>
+

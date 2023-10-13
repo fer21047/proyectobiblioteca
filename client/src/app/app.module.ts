@@ -23,6 +23,9 @@ import { NavigationBComponent } from './components/navigation-b/navigation-b.com
 import { NavigationUComponent } from './components/navigation-u/navigation-u.component';
 import { MapaComponent } from './components/mapa/mapa.component';
 
+// Importa AuthGuard aquí
+import { AuthGuard } from './guards/auth.guard';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -48,7 +51,8 @@ import { MapaComponent } from './components/mapa/mapa.component';
     FormsModule
   ],
   providers: [
-    PrestamosService
+    PrestamosService,
+    AuthGuard  // Añade AuthGuard aquí
   ],
   bootstrap: [AppComponent]
 })
