@@ -1,46 +1,63 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Usuarios } from '../models/Usuario';
+import { tap } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
   private isLoggedIn = false;
-  private currentUser: Usuarios| null = null;
+  private currentUser: Usuarios | null = null;
   
-  constructor(private http: HttpClient){}
+  constructor(private http: HttpClient) {
+    this.isLoggedIn = localStorage.getItem('isLoggedIn') === 'true';
+    const storedUser = localStorage.getItem('currentUser');
+    if (storedUser) {
+      this.currentUser = JSON.parse(storedUser);
+    }
+  }
 
   loginToServer(correo: string, password1: string) {
-    // Aquí realizas una solicitud HTTP al backend
-    return this.http.post('http://localhost:3000/api/login', { correo, password1 });
+    return this.http.post<Usuarios>('http://localhost:3000/api/login', { correo, password1 }).pipe(
+      tap((usuario: Usuarios) => {
+        if (usuario && usuario.IdTipoUsuario !== undefined) {
+          this.setLoggendInStatus(true);
+          this.setCurrentUser(usuario);
+        }
+      })
+    );
   }
 
   isAuthenticated(): boolean {
     return this.isLoggedIn;
   }
 
-  setLoggendInStatus(status: boolean){
+  setLoggendInStatus(status: boolean) {
     this.isLoggedIn = status;
+    localStorage.setItem('isLoggedIn', status.toString());
   }
 
-  logout(){
+  logout() {
     this.isLoggedIn = false;
+    this.currentUser = null;
+    localStorage.removeItem('isLoggedIn');
+    localStorage.removeItem('currentUser');
   }
 
   setCurrentUser(usuario: Usuarios) {
     this.currentUser = usuario;
+    localStorage.setItem('currentUser', JSON.stringify(usuario));
   }
 
   getCurrentUser(): Usuarios | null {
     return this.currentUser;
   }
 
-  // Aquí es donde debes agregar el nuevo método:
   getUserType(): number | null {
     if (this.currentUser) {
       return this.currentUser.IdTipoUsuario;
     }
-    return null; // Si no hay un usuario actual, retornamos null
+    return null;
   }
 }

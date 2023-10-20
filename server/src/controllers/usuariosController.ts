@@ -11,7 +11,6 @@ class UsuariosController {
     public async getOne(req: Request, res: Response): Promise<any> {
         const { idUsuario } = req.params;
         const usuarios = await pool.query('SELECT * FROM Usuario WHERE IdUsuario = ?', [idUsuario]); 
-        console.log(usuarios.length);
         if (usuarios.length > 0) {
             return res.json(usuarios[0]);
         }
@@ -25,7 +24,6 @@ class UsuariosController {
     }
 
     public async create(req: Request, res: Response):Promise<void> {
-        console.log(req.body);
         await pool.query('INSERT INTO Usuario set ?', [req.body]); 
         res.json({ message: 'Nuevo usuario guardado' });
     }
@@ -35,6 +33,24 @@ class UsuariosController {
         await pool.query('DELETE FROM Usuario WHERE IdUsuario = ?', [idUsuario]); 
         res.json({ message: "El usuario ha sido eliminado" });
     }
+
+    public async login(req: Request, res: Response): Promise<void> {
+        const { correo, password1 } = req.body;
+        
+        // Buscar al usuario con el correo proporcionado
+        const usuarios = await pool.query('SELECT * FROM Usuario WHERE Correo = ?', [correo]);
+        
+        // Si no encontramos al usuario o la contraseña es incorrecta, respondemos con error
+        if (usuarios.length === 0 || usuarios[0].Password !== password1) {  // Asumiendo que "Password" es el nombre de la columna de contraseña en tu tabla.
+            return res.status(401).json({ text: 'Las credenciales son incorrectas' });
+        }
+        
+        // Si todo está bien, devolvemos el usuario (sin enviar la contraseña al cliente)
+        const userToSend = { ...usuarios[0] };
+        delete userToSend.Password;
+        res.json(userToSend);
+    }
+
 }
 
 const usuariosController = new UsuariosController(); 

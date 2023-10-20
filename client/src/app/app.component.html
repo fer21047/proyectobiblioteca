@@ -1,5 +1,15 @@
-<app-navigation></app-navigation>
-<div class="container p-4" >
-    <router-outlet></router-outlet>
-</div>
+<!-- Navegación para administradores -->
+<app-navigation *ngIf="isLoggedIn && userRole === 1"></app-navigation>
+
+<!-- Navegación para bibliotecarios -->
+<app-navigation-b *ngIf="isLoggedIn && userRole === 2"></app-navigation-b>
+
+<!-- Navegación para usuarios normales -->
+<app-navigation-u *ngIf="isLoggedIn && userRole === 3"></app-navigation-u>
+
+<!-- Aquí sigue el resto de tu contenido -->
+<router-outlet></router-outlet>
+
+
+
 

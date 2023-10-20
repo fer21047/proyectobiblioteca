@@ -23,12 +23,11 @@ import { LoginComponent } from './components/login/login.component';
 import { AuthGuard } from './guards/auth.guard';
 
 
+import { InicioComponent } from './components/inicio/inicio.component'; // Asegúrate de tener este import para el InicioComponent
+
 const routes: Routes = [
-  {
-    path: '',
-    redirectTo: '/usuarios', 
-    pathMatch: 'full'
-  },
+  { path: '', redirectTo: '/inicio', pathMatch: 'full' },
+  { path: 'inicio', component: InicioComponent },
   
   // Rutas para Usuarios
   {

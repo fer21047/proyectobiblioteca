@@ -19,8 +19,18 @@ class Server {
     }
     config() {
         this.app.set('port', process.env.PORT || 3000);
+        const allowedOrigins = ['https://dominio1.com', 'https://dominio2.com'];
+        this.app.use((0, cors_1.default)({
+            origin: function (origin, callback) {
+                if (!origin || allowedOrigins.includes(origin)) {
+                    callback(null, true);
+                }
+                else {
+                    callback(new Error('Origen no permitido por la política de CORS'));
+                }
+            }
+        }));
         this.app.use((0, morgan_1.default)('dev'));
-        this.app.use((0, cors_1.default)());
         this.app.use(express_1.default.json());
         this.app.use(express_1.default.urlencoded({ extended: false }));
     }

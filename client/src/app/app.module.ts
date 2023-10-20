@@ -25,6 +25,8 @@ import { MapaComponent } from './components/mapa/mapa.component';
 
 // Importa AuthGuard aquí
 import { AuthGuard } from './guards/auth.guard';
+import { InicioComponent } from './components/inicio/inicio.component';
+import { AuthService } from './services/auth.service';
 
 @NgModule({
   declarations: [
@@ -42,7 +44,8 @@ import { AuthGuard } from './guards/auth.guard';
     LoginComponent,
     NavigationBComponent,
     NavigationUComponent,
-    MapaComponent
+    MapaComponent,
+    InicioComponent
   ],
   imports: [
     BrowserModule,
@@ -52,7 +55,8 @@ import { AuthGuard } from './guards/auth.guard';
   ],
   providers: [
     PrestamosService,
-    AuthGuard  // Añade AuthGuard aquí
+    AuthGuard, // Añade AuthGuard aquí
+    AuthService
   ],
   bootstrap: [AppComponent]
 })
