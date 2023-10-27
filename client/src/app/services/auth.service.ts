@@ -18,13 +18,11 @@ export class AuthService {
         this.currentUser = JSON.parse(storedUser);
       } catch (error) {
         console.error('Error al analizar JSON:', error);
-        // Puedes manejar el error de análisis aquí, por ejemplo, reiniciar el almacenamiento local.
-        // También podrías mostrar un mensaje al usuario si es necesario.
-        localStorage.removeItem('currentUser'); // Elimina el dato no válido
+        
+        localStorage.removeItem('currentUser'); 
       }
     }
   }
-
   loginToServer(correo: string, Password: string) {
     return this.http.post<Usuarios>('http://localhost:3000/api/auth', { correo, Password }).pipe(
       tap((usuario: Usuarios) => {

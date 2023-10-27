@@ -92,9 +92,10 @@ const routes: Routes = [
   { path: 'mapa', component: MapaComponent },
 
   { path: 'login', component: LoginComponent },
-  { path: 'admin-component', component: NavigationComponent, canActivate: [AuthGuard], data: { roles: [1] } }, // Ruta para el componente del administrador
-  { path: 'bibliotecario-component', component: NavigationBComponent, canActivate: [AuthGuard], data: { roles: [2] } }, // Ruta para el componente del bibliotecario
-  { path: 'usuario-normal-component', component: NavigationUComponent, canActivate: [AuthGuard], data: { roles: [3] } }, // Ruta para el componente del usuario normal
+  
+  { path: 'admin-component', component: NavigationComponent, canActivate: [AuthGuard], data: { roles: [1] } }, 
+  { path: 'bibliotecario-component', component: NavigationBComponent, canActivate: [AuthGuard], data: { roles: [2] } },
+  { path: 'usuario-normal-component', component: NavigationUComponent, canActivate: [AuthGuard], data: { roles: [3] } }, 
 ];
 
 @NgModule({

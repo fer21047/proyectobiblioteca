@@ -32,7 +32,7 @@
 <div class="container-fluid">
   <div class="row">
     <!-- Barra de navegación vertical -->
-    <nav class="col-md-2 col-lg-2 bg-light sidebar">
+    <nav class="col-md-2 col-lg-2 bg-light sidebar" *ngIf="isLoggedIn">
       <ul class="nav flex-column">
         <li class="nav-item">
           <a class="navbar-brand mb-4" routerLink="/">Biblioteca</a>
@@ -64,4 +64,5 @@
 <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
 </body>
 </html>
+
 
