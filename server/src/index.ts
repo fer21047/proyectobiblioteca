@@ -7,6 +7,8 @@ import multasRoutes from './routes/multasRoutes';
 import prestamosRoutes from './routes/prestamosRoutes';
 import booksRoutes from './routes/booksRoutes';
 import usuarioRoutes from './routes/usuariosRoutes'; 
+import authRoutes from './routes/authRoutes';
+
 
 class Server {
 
@@ -21,19 +23,8 @@ class Server {
     config(): void {
         this.app.set('port', process.env.PORT || 3000);
 
-        const allowedOrigins = ['https://dominio1.com', 'https://dominio2.com'];
-
-        this.app.use(cors({
-            origin: function (origin, callback) {
-                if (!origin || allowedOrigins.includes(origin)) {
-                    callback(null, true);
-                } else {
-                    callback(new Error('Origen no permitido por la política de CORS'));
-                }
-            }
-        }));
-
         this.app.use(morgan('dev'));
+        this.app.use(cors());
         this.app.use(express.json());
         this.app.use(express.urlencoded({ extended: false }));
     }
@@ -44,6 +35,7 @@ class Server {
         this.app.use('/api/prestamos', prestamosRoutes);
         this.app.use('/api/books', booksRoutes);
         this.app.use('/api/usuarios', usuarioRoutes);
+        this.app.use('/api/auth', authRoutes);
     }
 
     start() {

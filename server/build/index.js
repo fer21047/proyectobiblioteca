@@ -11,6 +11,7 @@ const multasRoutes_1 = __importDefault(require("./routes/multasRoutes"));
 const prestamosRoutes_1 = __importDefault(require("./routes/prestamosRoutes"));
 const booksRoutes_1 = __importDefault(require("./routes/booksRoutes"));
 const usuariosRoutes_1 = __importDefault(require("./routes/usuariosRoutes"));
+const authRoutes_1 = __importDefault(require("./routes/authRoutes"));
 class Server {
     constructor() {
         this.app = (0, express_1.default)();
@@ -19,18 +20,8 @@ class Server {
     }
     config() {
         this.app.set('port', process.env.PORT || 3000);
-        const allowedOrigins = ['https://dominio1.com', 'https://dominio2.com'];
-        this.app.use((0, cors_1.default)({
-            origin: function (origin, callback) {
-                if (!origin || allowedOrigins.includes(origin)) {
-                    callback(null, true);
-                }
-                else {
-                    callback(new Error('Origen no permitido por la política de CORS'));
-                }
-            }
-        }));
         this.app.use((0, morgan_1.default)('dev'));
+        this.app.use((0, cors_1.default)());
         this.app.use(express_1.default.json());
         this.app.use(express_1.default.urlencoded({ extended: false }));
     }
@@ -40,6 +31,7 @@ class Server {
         this.app.use('/api/prestamos', prestamosRoutes_1.default);
         this.app.use('/api/books', booksRoutes_1.default);
         this.app.use('/api/usuarios', usuariosRoutes_1.default);
+        this.app.use('/api/auth', authRoutes_1.default);
     }
     start() {
         this.app.listen(this.app.get('port'), () => {

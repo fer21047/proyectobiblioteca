@@ -14,12 +14,19 @@ export class AuthService {
     this.isLoggedIn = localStorage.getItem('isLoggedIn') === 'true';
     const storedUser = localStorage.getItem('currentUser');
     if (storedUser) {
-      this.currentUser = JSON.parse(storedUser);
+      try {
+        this.currentUser = JSON.parse(storedUser);
+      } catch (error) {
+        console.error('Error al analizar JSON:', error);
+        // Puedes manejar el error de análisis aquí, por ejemplo, reiniciar el almacenamiento local.
+        // También podrías mostrar un mensaje al usuario si es necesario.
+        localStorage.removeItem('currentUser'); // Elimina el dato no válido
+      }
     }
   }
 
-  loginToServer(correo: string, password1: string) {
-    return this.http.post<Usuarios>('http://localhost:3000/api/login', { correo, password1 }).pipe(
+  loginToServer(correo: string, Password: string) {
+    return this.http.post<Usuarios>('http://localhost:3000/api/auth', { correo, Password }).pipe(
       tap((usuario: Usuarios) => {
         if (usuario && usuario.IdTipoUsuario !== undefined) {
           this.setLoggendInStatus(true);

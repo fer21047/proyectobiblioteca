@@ -23,7 +23,10 @@ import { LoginComponent } from './components/login/login.component';
 import { AuthGuard } from './guards/auth.guard';
 
 
-import { InicioComponent } from './components/inicio/inicio.component'; // Asegúrate de tener este import para el InicioComponent
+import { InicioComponent } from './components/inicio/inicio.component';
+import { NavigationComponent } from './components/navigation/navigation.component';
+import { NavigationBComponent } from './components/navigation-b/navigation-b.component';
+import { NavigationUComponent } from './components/navigation-u/navigation-u.component';
 
 const routes: Routes = [
   { path: '', redirectTo: '/inicio', pathMatch: 'full' },
@@ -32,7 +35,9 @@ const routes: Routes = [
   // Rutas para Usuarios
   {
     path: 'usuarios', 
-    component: UsuarioListComponent 
+    component: UsuarioListComponent,
+    canActivate: [AuthGuard],
+    data: { roles: [1, 2, 3] } // 1 para administrador, 2 para bibliotecario
   },
   {
     path: 'usuarios/add', 
@@ -87,12 +92,9 @@ const routes: Routes = [
   { path: 'mapa', component: MapaComponent },
 
   { path: 'login', component: LoginComponent },
-  {
-    path: 'usuarios',
-    component: UsuarioListComponent,
-    canActivate: [AuthGuard],
-    data: { roles: [1, 2,3] }  // 1 para administrador, 2 para bibliotecario
-  },
+  { path: 'admin-component', component: NavigationComponent, canActivate: [AuthGuard], data: { roles: [1] } }, // Ruta para el componente del administrador
+  { path: 'bibliotecario-component', component: NavigationBComponent, canActivate: [AuthGuard], data: { roles: [2] } }, // Ruta para el componente del bibliotecario
+  { path: 'usuario-normal-component', component: NavigationUComponent, canActivate: [AuthGuard], data: { roles: [3] } }, // Ruta para el componente del usuario normal
 ];
 
 @NgModule({
@@ -100,5 +102,3 @@ const routes: Routes = [
   exports: [RouterModule]
 })
 export class AppRoutingModule { }
-
-

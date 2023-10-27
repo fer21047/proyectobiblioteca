@@ -23,7 +23,7 @@ export class AuthGuard implements CanActivate {
       }
 
       // Si no tiene el rol necesario, redirigir a una página de error o inicio
-      this.router.navigate(['/some-error-page']); // Reemplaza '/some-error-page' por la ruta de tu página de error o inicio
+      this.router.navigate(['/inicio']); // Reemplaza '/some-error-page' por la ruta de tu página de error o inicio
       return false;
   }
 }

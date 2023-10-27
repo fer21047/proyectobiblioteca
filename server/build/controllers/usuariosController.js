@@ -33,7 +33,7 @@ class UsuariosController {
     update(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
             const { idUsuario } = req.params;
-            yield database_1.default.query('UPDATE Usuario set ?  WHERE IdUsuario = ?', [req.body, idUsuario]);
+            yield database_1.default.query('UPDATE Usuario set ? WHERE IdUsuario = ?', [req.body, idUsuario]);
             res.json({ message: 'El usuario se actualizó' });
         });
     }
@@ -48,21 +48,6 @@ class UsuariosController {
             const { idUsuario } = req.params;
             yield database_1.default.query('DELETE FROM Usuario WHERE IdUsuario = ?', [idUsuario]);
             res.json({ message: "El usuario ha sido eliminado" });
-        });
-    }
-    login(req, res) {
-        return __awaiter(this, void 0, void 0, function* () {
-            const { correo, password1 } = req.body;
-            // Buscar al usuario con el correo proporcionado
-            const usuarios = yield database_1.default.query('SELECT * FROM Usuario WHERE Correo = ?', [correo]);
-            // Si no encontramos al usuario o la contraseña es incorrecta, respondemos con error
-            if (usuarios.length === 0 || usuarios[0].Password !== password1) { // Asumiendo que "Password" es el nombre de la columna de contraseña en tu tabla.
-                return res.status(401).json({ text: 'Las credenciales son incorrectas' });
-            }
-            // Si todo está bien, devolvemos el usuario (sin enviar la contraseña al cliente)
-            const userToSend = Object.assign({}, usuarios[0]);
-            delete userToSend.Password;
-            res.json(userToSend);
         });
     }
 }
